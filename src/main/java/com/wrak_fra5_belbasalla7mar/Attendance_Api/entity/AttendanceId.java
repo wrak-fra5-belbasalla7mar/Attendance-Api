@@ -14,5 +14,4 @@ import java.time.LocalDate;
 public class AttendanceId {
     private int userId;
     private LocalDate attendance_date;
-
 }
