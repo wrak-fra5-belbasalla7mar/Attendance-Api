@@ -2,6 +2,7 @@ package com.wrak_fra5_belbasalla7mar.Attendance_Api.entity;
 
 import com.wrak_fra5_belbasalla7mar.Attendance_Api.entity.enums.LocationStatus;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDate;
