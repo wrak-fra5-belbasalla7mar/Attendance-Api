@@ -11,11 +11,5 @@ public class AttendanceApiApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AttendanceApiApplication.class, args);
 	}
-	@Bean
-	public CommandLineRunner commandLineRunner(String [] args){
-		return runner ->{
-			System.out.println("Hello  world");
-		};
-	}
 
 }
