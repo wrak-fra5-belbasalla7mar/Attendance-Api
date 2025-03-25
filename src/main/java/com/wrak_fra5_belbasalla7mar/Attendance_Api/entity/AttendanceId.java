@@ -45,7 +45,7 @@ public class AttendanceId implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AttendanceId that = (AttendanceId) o;
-        return Objects.equals(userId, that.userId) && Objects.equals(attendance_date, that.attendance_date);
+        return userId==that.userId && Objects.equals(attendance_date, that.attendance_date);
     }
     @Override
     public int hashCode(){

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,6 +14,7 @@ import java.time.LocalTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Setter
 @Table(name = "attendance")
 public class Attendance {
     @EmbeddedId
@@ -21,7 +23,6 @@ public class Attendance {
     private LocalTime arrival;
     @Column(name = "departure")
     private LocalTime departure;
-
     @Enumerated(EnumType.STRING)
     @Column(name = "location")
     private LocationStatus location;

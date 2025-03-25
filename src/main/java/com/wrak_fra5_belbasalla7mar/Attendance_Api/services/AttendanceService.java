@@ -15,7 +15,8 @@ public class AttendanceService {
         this.attendanceRepository = attendanceRepository;
     }
     public Attendance setDailyStatus(int userId, LocationStatus locationStatus){
-        Attendance attendance = attendanceRepository.findById(new AttendanceId(userId,LocalDate.now()))
+        AttendanceId attendanceId = new AttendanceId(userId, LocalDate.now());
+        Attendance attendance = attendanceRepository.findById(attendanceId)
                 .orElse(new Attendance(userId,LocalDate.now()));
         attendance.setLocation(locationStatus);
         return attendanceRepository.save(attendance);
