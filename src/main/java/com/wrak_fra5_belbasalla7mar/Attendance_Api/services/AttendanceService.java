@@ -14,11 +14,25 @@ public class AttendanceService {
     public AttendanceService(AttendanceRepository attendanceRepository){
         this.attendanceRepository = attendanceRepository;
     }
-    public Attendance setDailyStatus(int userId, LocationStatus locationStatus){
+    public void setDailyStatus(int userId, LocationStatus locationStatus){
         AttendanceId attendanceId = new AttendanceId(userId, LocalDate.now());
         Attendance attendance = attendanceRepository.findById(attendanceId)
                 .orElse(new Attendance(userId,LocalDate.now()));
         attendance.setLocation(locationStatus);
-        return attendanceRepository.save(attendance);
+        attendanceRepository.save(attendance);
     }
+    //funtion get status for the day
+    public Attendance getDailyStatus(int userId){
+        AttendanceId attendanceId = new AttendanceId(userId, LocalDate.now());
+        return attendanceRepository.findById(attendanceId)
+                .orElseGet(()->{
+                    Attendance attendance= new Attendance(userId,LocalDate.now());
+                    attendance.setLocation(LocationStatus.Absent);
+                    return attendance;
+                });
+    }
+
+
+    //function get status for week
+
 }

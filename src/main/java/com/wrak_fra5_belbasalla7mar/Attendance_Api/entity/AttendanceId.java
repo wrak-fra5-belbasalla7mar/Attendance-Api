@@ -4,12 +4,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
+@Getter
 @Data
 @NoArgsConstructor
 @Embeddable
@@ -19,16 +21,8 @@ public class AttendanceId implements Serializable {
     @Column(name = "attendance_date")
     private LocalDate attendance_date;
 
-    public int getUserId() {
-        return userId;
-    }
-
     public void setUserId(int userId) {
         this.userId = userId;
-    }
-
-    public LocalDate getAttendance_date() {
-        return attendance_date;
     }
 
     public void setAttendance_date(LocalDate attendance_date) {
