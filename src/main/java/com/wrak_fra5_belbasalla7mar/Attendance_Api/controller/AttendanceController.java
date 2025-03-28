@@ -6,6 +6,9 @@ import com.wrak_fra5_belbasalla7mar.Attendance_Api.services.AttendanceService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.List;
+
 @RestController
 @RequestMapping("/attendance")
 public class AttendanceController {
@@ -23,5 +26,9 @@ public class AttendanceController {
     public ResponseEntity<Attendance>getDailyStatus(@RequestParam int userId){
         Attendance attendance = attendanceService.getDailyStatus(userId);
         return ResponseEntity.ok(attendance);
+    }
+    @GetMapping("/history")
+    public List<Attendance> getAttendanceStatusBetweenDates(@RequestParam int userId){
+        return attendanceService.getWeeklyAttendance(userId);
     }
 }

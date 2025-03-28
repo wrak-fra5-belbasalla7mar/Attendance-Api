@@ -7,6 +7,8 @@ import com.wrak_fra5_belbasalla7mar.Attendance_Api.repositories.AttendanceReposi
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AttendanceService {
@@ -21,7 +23,6 @@ public class AttendanceService {
         attendance.setLocation(locationStatus);
         attendanceRepository.save(attendance);
     }
-    //funtion get status for the day
     public Attendance getDailyStatus(int userId){
         AttendanceId attendanceId = new AttendanceId(userId, LocalDate.now());
         return attendanceRepository.findById(attendanceId)
@@ -31,8 +32,12 @@ public class AttendanceService {
                     return attendance;
                 });
     }
+    public List<Attendance> getWeeklyAttendance(int userId){
+        LocalDate endDate = LocalDate.now();
+        LocalDate startDate = endDate.minusDays(7);
+        return attendanceRepository.findAttendanceBetweenDates(userId,startDate,endDate);
 
+    }
 
-    //function get status for week
 
 }

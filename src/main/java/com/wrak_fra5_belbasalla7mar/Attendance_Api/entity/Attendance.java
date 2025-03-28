@@ -29,4 +29,8 @@ public class Attendance {
     public Attendance(int userId,LocalDate attendance_date){
         this.id=new AttendanceId(userId,attendance_date);
     }
+    public Attendance(int userId,LocalDate attendance_date,LocationStatus location){
+        this.id=new AttendanceId(userId,attendance_date);
+        this.location = location;
+    }
 }
