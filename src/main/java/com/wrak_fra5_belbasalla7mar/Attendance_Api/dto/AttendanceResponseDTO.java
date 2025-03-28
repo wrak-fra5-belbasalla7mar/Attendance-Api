@@ -16,7 +16,5 @@ import java.util.List;
 @Setter
 public class AttendanceResponseDTO {
     private UserDTO userDTO;
-//    private LocalDate attendanceDate;
-//    private LocationStatus locationStatus;
     private List<Attendance> attendanceList;
 }

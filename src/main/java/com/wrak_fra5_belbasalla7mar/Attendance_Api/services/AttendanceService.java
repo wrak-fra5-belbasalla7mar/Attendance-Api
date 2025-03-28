@@ -8,11 +8,9 @@ import com.wrak_fra5_belbasalla7mar.Attendance_Api.entity.enums.LocationStatus;
 import com.wrak_fra5_belbasalla7mar.Attendance_Api.repositories.AttendanceRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
 @Service
 public class AttendanceService {
     private final AttendanceRepository attendanceRepository;
