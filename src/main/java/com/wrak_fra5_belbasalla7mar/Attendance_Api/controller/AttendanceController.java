@@ -29,7 +29,7 @@ public class AttendanceController {
         return ResponseEntity.ok(attendance);
     }
     @GetMapping("/history")
-    public List<Attendance> getAttendanceStatusBetweenDates(@RequestParam int userId){
+    public AttendanceResponseDTO getAttendanceStatusBetweenDates(@RequestParam int userId){
         return attendanceService.getWeeklyAttendance(userId);
     }
 }

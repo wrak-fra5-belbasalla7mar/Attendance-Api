@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class VacationService {
     private final VacationRepository vacationRepository;
-    @Autowired
+
     public VacationService(VacationRepository vacationRepository) {
         this.vacationRepository = vacationRepository;
     }

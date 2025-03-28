@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -32,13 +33,16 @@ public class AttendanceService {
                 .orElse(new Attendance(userId,LocalDate.now()));
         attendance.setLocation(LocationStatus.Absent);
         UserDTO user = fetchUserDetails(userId);
-        return new AttendanceResponseDTO(user,attendance.getId().getAttendanceDate(),attendance.getLocation());
+        List<Attendance> attendanceList = new ArrayList<>();
+        attendanceList.add(attendance);
+        return new AttendanceResponseDTO(user,attendanceList);
     }
-    public List<Attendance> getWeeklyAttendance(int userId){
+    public AttendanceResponseDTO getWeeklyAttendance(int userId){
         LocalDate endDate = LocalDate.now();
         LocalDate startDate = endDate.minusDays(7);
-        return attendanceRepository.findAttendanceBetweenDates(userId,startDate,endDate);
-
+        List<Attendance> attendanceList = attendanceRepository.findAttendanceBetweenDates(userId,startDate,endDate);
+        UserDTO user = fetchUserDetails(userId);
+        return new AttendanceResponseDTO(user,attendanceList);
     }
     private UserDTO fetchUserDetails(int userId){
         return webClient.get()
