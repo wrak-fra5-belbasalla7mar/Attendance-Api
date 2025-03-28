@@ -1,5 +1,6 @@
 package com.wrak_fra5_belbasalla7mar.Attendance_Api.controller;
 
+import com.wrak_fra5_belbasalla7mar.Attendance_Api.dto.AttendanceResponseDTO;
 import com.wrak_fra5_belbasalla7mar.Attendance_Api.entity.Attendance;
 import com.wrak_fra5_belbasalla7mar.Attendance_Api.entity.enums.LocationStatus;
 import com.wrak_fra5_belbasalla7mar.Attendance_Api.services.AttendanceService;
@@ -23,8 +24,8 @@ public class AttendanceController {
         return ResponseEntity.ok("Attendance recorded successfully!");
     }
     @GetMapping("/daily-status")
-    public ResponseEntity<Attendance>getDailyStatus(@RequestParam int userId){
-        Attendance attendance = attendanceService.getDailyStatus(userId);
+    public ResponseEntity<AttendanceResponseDTO>getDailyStatus(@RequestParam int userId){
+        AttendanceResponseDTO attendance = attendanceService.getDailyStatus(userId);
         return ResponseEntity.ok(attendance);
     }
     @GetMapping("/history")

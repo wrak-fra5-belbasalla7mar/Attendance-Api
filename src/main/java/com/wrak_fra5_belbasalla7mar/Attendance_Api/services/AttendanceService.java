@@ -1,18 +1,21 @@
 package com.wrak_fra5_belbasalla7mar.Attendance_Api.services;
 
+import com.wrak_fra5_belbasalla7mar.Attendance_Api.dto.AttendanceResponseDTO;
+import com.wrak_fra5_belbasalla7mar.Attendance_Api.dto.UserDTO;
 import com.wrak_fra5_belbasalla7mar.Attendance_Api.entity.Attendance;
 import com.wrak_fra5_belbasalla7mar.Attendance_Api.entity.AttendanceId;
 import com.wrak_fra5_belbasalla7mar.Attendance_Api.entity.enums.LocationStatus;
 import com.wrak_fra5_belbasalla7mar.Attendance_Api.repositories.AttendanceRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class AttendanceService {
     private final AttendanceRepository attendanceRepository;
+    private final WebClient webClient = WebClient.create("http://localhost:8081/employee");
     public AttendanceService(AttendanceRepository attendanceRepository){
         this.attendanceRepository = attendanceRepository;
     }
@@ -23,20 +26,26 @@ public class AttendanceService {
         attendance.setLocation(locationStatus);
         attendanceRepository.save(attendance);
     }
-    public Attendance getDailyStatus(int userId){
+    public AttendanceResponseDTO getDailyStatus(int userId){
         AttendanceId attendanceId = new AttendanceId(userId, LocalDate.now());
-        return attendanceRepository.findById(attendanceId)
-                .orElseGet(()->{
-                    Attendance attendance= new Attendance(userId,LocalDate.now());
-                    attendance.setLocation(LocationStatus.Absent);
-                    return attendance;
-                });
+        Attendance attendance= attendanceRepository.findById(attendanceId)
+                .orElse(new Attendance(userId,LocalDate.now()));
+        attendance.setLocation(LocationStatus.Absent);
+        UserDTO user = fetchUserDetails(userId);
+        return new AttendanceResponseDTO(user,attendance.getId().getAttendanceDate(),attendance.getLocation());
     }
     public List<Attendance> getWeeklyAttendance(int userId){
         LocalDate endDate = LocalDate.now();
         LocalDate startDate = endDate.minusDays(7);
         return attendanceRepository.findAttendanceBetweenDates(userId,startDate,endDate);
 
+    }
+    private UserDTO fetchUserDetails(int userId){
+        return webClient.get()
+                .uri("/find?id="+userId)
+                .retrieve()
+                .bodyToMono(UserDTO.class)
+                .block();
     }
 
 
