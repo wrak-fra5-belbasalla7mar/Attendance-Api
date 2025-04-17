@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class VacationService {
@@ -31,6 +32,15 @@ public class VacationService {
         vacationRequest.setVacationStatus(VacationStatus.REJECTED);
         return vacationRepository.save(vacationRequest);
     }
+
+    public List<VacationRequest> getAllVacations(){
+        return vacationRepository.findAll();
+    }
+
+    public List<VacationRequest> getAllByUserId(int id){
+        return vacationRepository.findAllByUserId(id);
+    }
+
 
 
 

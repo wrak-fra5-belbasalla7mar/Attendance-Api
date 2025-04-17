@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 public class AttendanceService {
     private final AttendanceRepository attendanceRepository;
-    private final WebClient webClient = WebClient.create("http://localhost:8081/employee");
+    private final WebClient webClient = WebClient.create("http://localhost:8080/employee");
     public AttendanceService(AttendanceRepository attendanceRepository){
         this.attendanceRepository = attendanceRepository;
     }

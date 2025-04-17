@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface VacationRepository extends JpaRepository<VacationRequest,Integer> {
     List<VacationRequest> findByUserId(int userId);
+
+    List<VacationRequest> findAllByUserId(int userId);
 }

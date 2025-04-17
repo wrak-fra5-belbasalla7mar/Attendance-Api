@@ -1,7 +1,7 @@
 package com.wrak_fra5_belbasalla7mar.Attendance_Api.controller;
 
 import com.wrak_fra5_belbasalla7mar.Attendance_Api.dto.AttendanceResponseDTO;
-import com.wrak_fra5_belbasalla7mar.Attendance_Api.entity.Attendance;
+
 import com.wrak_fra5_belbasalla7mar.Attendance_Api.entity.enums.LocationStatus;
 import com.wrak_fra5_belbasalla7mar.Attendance_Api.services.AttendanceService;
 import org.springframework.http.ResponseEntity;
@@ -12,11 +12,13 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/attendance")
+@CrossOrigin(origins = "*")
 public class AttendanceController {
     private final AttendanceService attendanceService;
     public AttendanceController(AttendanceService attendanceService){
         this.attendanceService = attendanceService;
     }
+
     @PostMapping("/set-status")
     public ResponseEntity<String>setAttendance(@RequestParam int userId,
                                                @RequestParam LocationStatus locationStatus){

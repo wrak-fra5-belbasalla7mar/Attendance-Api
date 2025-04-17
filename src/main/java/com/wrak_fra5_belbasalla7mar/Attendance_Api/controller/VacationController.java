@@ -6,9 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @RestController
 @RequestMapping("/vacation")
+@CrossOrigin(origins = "*")
 public class VacationController {
     private final VacationService vacationService;
 
@@ -27,11 +29,23 @@ public class VacationController {
         vacationService.approveVacation(requestId);
         return ResponseEntity.ok("request is approved successfully");
     }
+
     @PostMapping("/reject-vacation")
     public ResponseEntity<String> rejectVacation(@RequestParam int requestId){
         vacationService.rejectVacation(requestId);
         return ResponseEntity.ok("request is rejected successfully");
     }
+
+    @GetMapping("/all")
+    public List<VacationRequest> all(){
+        return vacationService.getAllVacations();
+    }
+
+    @GetMapping("")
+    public List<VacationRequest> allByUserId(@RequestParam int id){
+        return vacationService.getAllByUserId(id);
+    }
+
 
 
 

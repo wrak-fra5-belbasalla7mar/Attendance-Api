@@ -17,6 +17,7 @@ import java.time.LocalTime;
 @Setter
 @Table(name = "attendance")
 public class Attendance {
+
     @EmbeddedId
     private AttendanceId id;
     @Column(name = "arrival")
